@@ -56,6 +56,15 @@ public class InventoryMainController {
     }
 
     @FXML
+    private void modifyPartSceneOnClick(ActionEvent event) throws IOException {
+        Parent addPartParent = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyPart.fxml"));
+        Scene addPartScene = new Scene(addPartParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(addPartScene);
+        window.show();
+    }
+
+    @FXML
     void initialize() {
 
     }
