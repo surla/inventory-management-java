@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddProduct">
+    <children>
+        <Label layoutX="30.0" layoutY="23.0" text="Modify Product">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <AnchorPane layoutX="14.0" layoutY="56.0" prefHeight="201.0" prefWidth="296.0">
+            <children>
+                <Group layoutX="14.0" layoutY="14.0">
+                    <children>
+                        <Label layoutY="5.0" text="ID" />
+                        <TextField layoutX="46.0" />
+                    </children>
+                </Group>
+                <Group layoutX="14.0" layoutY="48.0">
+                    <children>
+                        <Label layoutY="5.0" text="Name" />
+                        <TextField layoutX="46.0" />
+                    </children>
+                </Group>
+                <Group layoutX="14.0" layoutY="81.0">
+                    <children>
+                        <Label layoutY="5.0" text="Inv" />
+                        <TextField layoutX="46.0" prefWidth="78.0" />
+                    </children>
+                </Group>
+                <Group layoutX="14.0" layoutY="113.0">
+                    <children>
+                        <Label layoutY="5.0" text="Price" />
+                        <TextField layoutX="46.0" prefWidth="78.0" />
+                    </children>
+                </Group>
+                <Group layoutX="14.0" layoutY="147.0">
+                    <children>
+                        <Label layoutY="5.0" text="Max" />
+                        <TextField layoutX="46.0" prefWidth="78.0" />
+                    </children>
+                </Group>
+                <Group layoutX="156.0" layoutY="147.0">
+                    <children>
+                        <Label layoutX="-4.0" layoutY="5.0" text="Min" />
+                        <TextField layoutX="31.0" prefWidth="78.0" />
+                    </children>
+                </Group>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="292.0" layoutY="8.0" prefHeight="584.0" prefWidth="382.0">
+            <children>
+                <TableView layoutX="14.0" layoutY="52.0" prefHeight="200.0" prefWidth="361.0">
+                    <columns>
+                        <TableColumn prefWidth="52.0" text="Part ID" />
+                        <TableColumn prefWidth="98.0" text="Part Name" />
+                        <TableColumn prefWidth="100.0" text="Inventory Level" />
+                        <TableColumn prefWidth="110.0" text="Price/Cost per Unit" />
+                    </columns>
+                </TableView>
+                <TableView layoutX="14.0" layoutY="301.0" prefHeight="200.0" prefWidth="361.0">
+                    <columns>
+                        <TableColumn prefWidth="52.0" text="Part ID" />
+                        <TableColumn prefWidth="98.0" text="Part Name" />
+                        <TableColumn prefWidth="100.0" text="Inventory Level" />
+                        <TableColumn prefWidth="110.0" text="Price/Cost per Unit" />
+                    </columns>
+                </TableView>
+                <Button layoutX="334.0" layoutY="259.0" mnemonicParsing="false" text="Add" />
+                <Button layoutX="224.0" layoutY="509.0" mnemonicParsing="false" text="Remove Associated Part" />
+                <Button layoutX="224.0" layoutY="547.0" mnemonicParsing="false" text="Save" />
+                <Button layoutX="318.0" layoutY="547.0" mnemonicParsing="false" text="Cancel" />
+                <TextField layoutX="151.0" layoutY="14.0" />
+                <Button layoutX="318.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -69,7 +69,6 @@ public class AddPartController {
         }
     }
 
-    @Override
     public void initialize() {
         //Configuring RadioButtons
         InHouseRadioButton.setSelected(true);
