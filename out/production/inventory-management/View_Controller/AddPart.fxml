@@ -6,8 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="365.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddPart">
+<AnchorPane prefHeight="365.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddPartController">
    <children>
       <Label layoutX="35.0" layoutY="40.0" text="Add Part" />
       <RadioButton layoutX="158.0" layoutY="39.0" mnemonicParsing="false" text="In-House" />
