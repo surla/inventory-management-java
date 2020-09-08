@@ -6,15 +6,8 @@ import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.*;
 
 public class Inventory {
-    private ObservableList<Part> allParts;
-    private ObservableList<Product> allProducts;
-
-
-    //Inventory class constructor
-    public Inventory() {
-        this.allParts = FXCollections.observableArrayList();
-        this.allProducts = FXCollections.observableArrayList();
-    }
+    private ObservableList<Part> allParts = FXCollections.observableArrayList();
+    private ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
     public void addPart(Part newPart) {
         allParts.add(newPart);
