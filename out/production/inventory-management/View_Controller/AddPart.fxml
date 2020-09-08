@@ -18,9 +18,9 @@
             <Label layoutX="14.0" layoutY="48.0" text="Name" />
             <TextField fx:id="nameTextField" layoutX="95.0" layoutY="43.0" prefHeight="27.0" prefWidth="129.0" />
             <Label layoutX="18.0" layoutY="83.0" text="Inv" />
-            <TextField fx:id="InventoryTextField" layoutX="95.0" layoutY="78.0" prefHeight="27.0" prefWidth="129.0" />
+            <TextField fx:id="inventoryTextField" layoutX="95.0" layoutY="78.0" prefHeight="27.0" prefWidth="129.0" />
             <Label layoutX="18.0" layoutY="116.0" text="Price/Cost" />
-            <TextField fx:id="PriceCostTextField" layoutX="95.0" layoutY="111.0" prefHeight="27.0" prefWidth="129.0" />
+            <TextField fx:id="priceTextField" layoutX="95.0" layoutY="111.0" prefHeight="27.0" prefWidth="129.0" />
             <Label layoutX="19.0" layoutY="155.0" text="Max" />
             <TextField fx:id="maxTextField" layoutX="95.0" layoutY="150.0" prefHeight="27.0" prefWidth="129.0" />
             <Label fx:id="sourceLabel" layoutX="16.0" layoutY="198.0" text="Part Source" />
@@ -29,7 +29,7 @@
             <Label layoutX="266.0" layoutY="155.0" text="Min" />
          </children>
       </AnchorPane>
-      <Button fx:id="saveButton" layoutX="368.0" layoutY="323.0" mnemonicParsing="false" text="Save" />
+      <Button fx:id="saveButton" layoutX="368.0" layoutY="323.0" mnemonicParsing="false" onAction="#savePartButtonAction" text="Save" />
       <Button fx:id="cancelButton" layoutX="438.0" layoutY="323.0" mnemonicParsing="false" onAction="#onClickCancelButton" text="Cancel" />
    </children>
 </AnchorPane>
