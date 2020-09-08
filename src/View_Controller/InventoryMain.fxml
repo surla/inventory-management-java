@@ -32,7 +32,7 @@
             </TableView>
             <Button fx:id="addPartButton" layoutX="15.0" layoutY="264.0" mnemonicParsing="false" onAction="#addPartSceneOnClick" text="Add" />
             <Button fx:id="modifyPartButton" layoutX="236.0" layoutY="264.0" mnemonicParsing="false" onAction="#modifyPartSceneOnClick" text="Modify" />
-            <Button fx:id="deletePartButton" layoutX="304.0" layoutY="264.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="deletePartButton" layoutX="304.0" layoutY="264.0" mnemonicParsing="false" onAction="#deletePartButtonPushed" text="Delete" />
             <Button fx:id="searchPartButton" layoutX="302.0" layoutY="16.0" mnemonicParsing="false" text="Search" />
             <TextField fx:id="searchPartField" layoutX="182.0" layoutY="16.0" prefHeight="27.0" prefWidth="110.0" />
          </children>

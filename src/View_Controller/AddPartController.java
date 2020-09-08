@@ -19,7 +19,8 @@ public class AddPartController {
     @FXML private RadioButton OutsourcedRadioButton;
     private ToggleGroup sourceToggleGroup = new ToggleGroup();
 
-    @FXML private TextField idTextField;
+    @FXML private TextField partIdTextField;
+
     @FXML private TextField nameTextField;
     @FXML private TextField inventoryTextField;
     @FXML private TextField priceTextField;
@@ -66,21 +67,38 @@ public class AddPartController {
     public void savePartButtonAction(ActionEvent event) throws IOException {
         Random random = new Random();
 
-        int id = random.nextInt(90);
+        int id = random.nextInt(200);
         String name = nameTextField.getText();
         int stock = Integer.parseInt(inventoryTextField.getText());
         double price = Double.parseDouble(priceTextField.getText());
         int max = Integer.parseInt(maxTextField.getText());
         int min = Integer.parseInt(minTextField.getText());
-        int machineId = 1;
+        String source = sourceTextField.getText();
 
-        Inventory.addPart(new InHouse(id,
-                name,
-                price,
-                stock,
-                min,
-                max,
-                machineId));
+        if (InHouseRadioButton.isSelected()) {
+            int machineId = Integer.parseInt(source);
+
+            Inventory.addPart(new InHouse(id,
+                    name,
+                    price,
+                    stock,
+                    min,
+                    max,
+                    machineId));
+        }
+
+        if (OutsourcedRadioButton.isSelected()) {
+            String companyName = source;
+
+            Inventory.addPart(new Outsourced(id,
+                    name,
+                    price,
+                    stock,
+                    min,
+                    max,
+                    companyName));
+        }
+
 
         Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
         Scene mainScene = new Scene(parent);
@@ -90,11 +108,16 @@ public class AddPartController {
     }
 
     public void initialize() {
+        //Set default text for partIdTextField
+        partIdTextField.setDisable(true);
+        partIdTextField.setText("Auto-generated");
         //Configuring RadioButtons
         InHouseRadioButton.setSelected(true);
         sourceLabel.setText("Machine Id");
         this.InHouseRadioButton.setToggleGroup(sourceToggleGroup);
         this.OutsourcedRadioButton.setToggleGroup(sourceToggleGroup);
+
+
 
     }
 }
