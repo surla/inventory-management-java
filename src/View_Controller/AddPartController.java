@@ -77,6 +77,15 @@ public class AddPartController {
         int min = Integer.parseInt(minTextField.getText());
         String source = sourceTextField.getText();
 
+        if (min > max || stock < min) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("I have a great message for you!");
+
+            alert.showAndWait();
+        }
+
         if (InHouseRadioButton.isSelected()) {
             int machineId = Integer.parseInt(source);
 

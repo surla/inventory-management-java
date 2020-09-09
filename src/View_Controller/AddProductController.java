@@ -10,13 +10,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Random;
 
 public class AddProductController {
@@ -87,8 +86,17 @@ public class AddProductController {
 
     @FXML
     private void removeAssociatedPart(ActionEvent event) {
-        Part part = partTableView.getSelectionModel().getSelectedItem();
-        addParts.remove(part);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Associated Part");
+        alert.setHeaderText("Remove associated part");
+        alert.setContentText("Do you want to remove this part?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Part part = partTableView.getSelectionModel().getSelectedItem();
+            addParts.remove(part);
+        }
+
     }
 
 

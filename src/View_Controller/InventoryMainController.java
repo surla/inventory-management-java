@@ -2,6 +2,7 @@ package View_Controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Model.*;
@@ -13,12 +14,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.scene.control.TableView;
 
 public class InventoryMainController {
     @FXML
@@ -86,9 +84,16 @@ public class InventoryMainController {
 
     @FXML
     private void deletePartButtonPushed() {
-        Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(selectedPart);
-        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Part");
+        alert.setHeaderText("Delete Part");
+        alert.setContentText("Do you want to delete part?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
+            Inventory.deletePart(selectedPart);
+        }
     }
 
 
@@ -119,6 +124,30 @@ public class InventoryMainController {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(modifyProductScene);
         window.show();
+    }
+
+    @FXML
+    private void onClickDeleteProductButton(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Product");
+        alert.setHeaderText("Delete Product");
+        alert.setContentText("Do you want to delete product?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+            if (selectedProduct.getAllAssociatedParts().isEmpty()) {
+                Inventory.deleteProduct(selectedProduct);
+            } else {
+                Alert alert2 = new Alert(Alert.AlertType.WARNING);
+                alert2.setTitle("Product");
+                alert2.setHeaderText("Cannot Delete Product ");
+                alert2.setContentText("Please remove associated part before deleting.");
+
+                alert2.showAndWait();
+            }
+
+        }
     }
 
     @FXML

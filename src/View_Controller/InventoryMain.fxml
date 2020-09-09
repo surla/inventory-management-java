@@ -54,7 +54,7 @@
             </TableView>
             <Button fx:id="addProductButton" layoutX="15.0" layoutY="264.0" mnemonicParsing="false" onAction="#onClickAddProductButton" text="Add" />
             <Button fx:id="modifyProductButton" layoutX="236.0" layoutY="264.0" mnemonicParsing="false" onAction="#onClickModifyProductButton" text="Modify" />
-            <Button layoutX="304.0" layoutY="264.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="deleteProductButton" layoutX="304.0" layoutY="264.0" mnemonicParsing="false" onAction="#onClickDeleteProductButton" text="Delete" />
             <Button layoutX="302.0" layoutY="16.0" mnemonicParsing="false" text="Search" />
             <TextField layoutX="182.0" layoutY="16.0" prefHeight="27.0" prefWidth="110.0" />
          </children>

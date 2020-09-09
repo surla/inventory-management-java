@@ -43,7 +43,7 @@ public class Main extends Application {
         product1.addAssociatedPart(item1);
         product1.addAssociatedPart(p1);
 
-        Product product2 = new Product(33, "Product 2", 5.99, 2, 5, 50);
+        Product product2 = new Product(33, "Product 2", 5.99, 10, 5, 50);
         product2.addAssociatedPart(item2);
         product2.addAssociatedPart(p2);
 
