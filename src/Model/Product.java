@@ -3,6 +3,11 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Products class contain many parts.
+ * An ObservableList contains all associated parts included to making a product.
+ */
+
 public class Product {
     private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private int id;

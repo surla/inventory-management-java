@@ -1,5 +1,11 @@
 package Model;
 
+/**
+ * Outsourced class inherits from Part class. This creates objects that are outsourced
+ * to different companies.
+ * companyName added as an attribute.
+ */
+
 public class Outsourced extends Part{
     private String companyName;
 

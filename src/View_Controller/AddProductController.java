@@ -45,7 +45,9 @@ public class AddProductController {
     @FXML private TableColumn<Part, Integer> associatedPartInvColumn;
     @FXML private TableColumn<Part, Integer> associatedPartPriceColumn;
 
-
+    /**
+     * This method redirects users to InventoryMain.fxml after clicking button
+     */
     @FXML
     private void onClickCancelButton(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
@@ -55,6 +57,11 @@ public class AddProductController {
         window.show();
     }
 
+    /**
+     * This method allows searching of data in parts table. Table will auto-populate as users type.
+     * When search text field is empty shows all parts available.
+     * Displays message "Part not found" if part does not exist.
+     */
     @FXML
     private void partSearchData() {
         ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
@@ -84,12 +91,21 @@ public class AddProductController {
         }
     }
 
+    /**
+     * Method adds part to product. Part is added to a temporary ObservableList until Product object
+     * instantiated. After click, added part will show in associatedPart table.
+     */
     @FXML
     private void onClickAddPartButton(ActionEvent event) {
         addParts.add(partTableView.getSelectionModel().getSelectedItem());
         System.out.println(addParts);
     }
 
+    /**
+     * Method instantiates Product object.
+     * Parts from addParts ObservableList is added as associatedParts to object.
+     * Creates error of inappropriate data is added.
+     */
     public void saveProductButtonAction(ActionEvent event) throws IOException {
         try {
             Random random = new Random();
@@ -116,7 +132,6 @@ public class AddProductController {
             window.setScene(mainScene);
             window.show();
         } catch (Exception e) {
-            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Add Product");
             alert.setHeaderText("Error. Inappropriate data entered.");
@@ -126,6 +141,9 @@ public class AddProductController {
         }
     }
 
+    /**
+     * Removes associated part from product. Confirmation alert shows to confirm deletion.
+     */
     @FXML
     private void removeAssociatedPart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -141,7 +159,10 @@ public class AddProductController {
     }
 
 
-
+    /**
+     * Initailize method sets call values for both parts and associated parts tableview.
+     * Included listener for parts search text field.
+     */
     public void initialize() {
         //Set default text for partIdTextField
         productIdTextField.setDisable(true);

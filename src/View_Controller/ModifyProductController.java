@@ -44,6 +44,10 @@ public class ModifyProductController {
     @FXML private TableColumn<Part, Integer> associatedPartInvColumn;
     @FXML private TableColumn<Part, Integer> associatedPartPriceColumn;
 
+    /**
+     * This method accepts an argument of the selected product from InventoryMain.fxml.
+     * Populated form with product object data.
+     */
     public void initData(Product product) throws IOException {
         selectedProduct = product;
 
@@ -63,6 +67,11 @@ public class ModifyProductController {
         minTextField.setText(min);
 
     }
+
+    /**
+     * This method searches parts in partsTableView. When text field is empty, shows all parts.
+     * If part not found, message will show 'Part not found'.
+     */
 
     @FXML
     private void partSearchData() {
@@ -92,6 +101,11 @@ public class ModifyProductController {
             partTableView.setItems(partSearchResults);
         }
     }
+
+    /**
+     * Method saves modify product object. After save redirects users to main scene.
+     * Error alerts user if inappropriate data is entered.
+     */
 
     @FXML
     private void saveModifyProductButtonAction(ActionEvent event) throws IOException {
@@ -123,11 +137,18 @@ public class ModifyProductController {
         }
     }
 
+    /**
+     * Method add parts from parts table to associated part.
+     *
+     */
     @FXML
     private void onClickAddPartButton(ActionEvent event) {
         selectedProduct.addAssociatedPart(partTableView.getSelectionModel().getSelectedItem());
     }
 
+    /**
+     * Method removed associated part from product. Alert confirms the users want to delete.
+     */
     @FXML
     private void removeAssociatedPart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -144,6 +165,9 @@ public class ModifyProductController {
 
     }
 
+    /**
+     * Redirects to main scene.
+     */
     @FXML
     private void onClickCancelButton(ActionEvent event) throws IOException {
         Parent addPartParent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
@@ -153,6 +177,10 @@ public class ModifyProductController {
         window.show();
     }
 
+    /**
+     * initialize method set cell values for part and associated part tableviews.
+     * Disabled productId textfield.
+     */
     public void initialize() {
         //Set default text for partIdTextField
         productIdTextField.setDisable(true);

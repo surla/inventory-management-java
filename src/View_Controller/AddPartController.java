@@ -38,6 +38,10 @@ public class AddPartController {
     @FXML
     private Button cancelButton;
 
+
+    /**
+     * This method will redirect to InventoryMain.fxml.
+     */
     @FXML
     private void onClickCancelButton(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
@@ -50,7 +54,7 @@ public class AddPartController {
 
 
     /**
-     * Method to update sourceLabel when a RadioButton is selected
+     * Method to update sourceLabel when a RadioButton is selected.
      *
      */
     public void setSourceLabel(ActionEvent event) {
@@ -63,7 +67,10 @@ public class AddPartController {
     }
 
     /**
-     * Method to save new part to Inventory
+     * Method to save new part. RadioButton determines if an InHouse object or Outsourced object is created.
+     * Generates errors if inappropriate data is added.
+     * Checks that min is less than max and Inv is in-between min and max.
+     *
      */
 
     public void savePartButtonAction(ActionEvent event) throws IOException {
@@ -137,6 +144,11 @@ public class AddPartController {
         }
     }
 
+    /**
+     * Radio buttons are set in a group and only one is selected.
+     * Sets partIdTextField to disabled and prevents users from creating Id.
+     * partId is auto-generated.
+     */
     public void initialize() {
         //Set default text for partIdTextField
         partIdTextField.setDisable(true);

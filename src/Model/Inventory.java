@@ -3,6 +3,9 @@ package Model;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
+/**
+ *
+ */
 public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();

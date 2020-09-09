@@ -31,10 +31,9 @@ public class ModifyPartController {
     private Part selectedPart;
 
     /**
-     * Method accepts a part to initialize modify form
-     * @param part
+     * This method accepts an argument of the selected part from InventoryMain.fxml.
+     * Populated form with object data.
      */
-
     public void initData (Part part) throws IOException {
         selectedPart = part;
 
@@ -73,6 +72,12 @@ public class ModifyPartController {
 
     }
 
+    /**
+     * Saves modified part object.
+     * It will update part object or create a new part objects depending if user changes from
+     *  of part (InHouse or Outsourced).
+     * If inappropriate data is added, error alert will show.
+     */
     @FXML
     public void saveModifyPartButtonAction(ActionEvent event) throws IOException {
         try {
@@ -148,6 +153,10 @@ public class ModifyPartController {
         }
 
     }
+
+    /**
+     * Redirects users to InventoryMain.fxml
+     */
 
     @FXML
     private void cancelButtonOnClick(ActionEvent event) throws IOException {

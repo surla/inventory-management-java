@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -13,7 +12,7 @@ public class Main extends Application {
     private Stage primaryStage;
 
     /**
-     * This method sets the primaryStage of the GUI.
+     * This method sets the primaryStage of the GUI. It accesses InventoryMain.fxml for its main scene.
 
      */
     @Override
@@ -27,7 +26,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         /**
-         * Adds test data to populate tables
+         * The following code instantiate objects using the InHouse class, Outsourced class and add objects
+         * to ObservableList in the Inventory class.
          */
 
         //Add InHouse parts
@@ -53,7 +53,6 @@ public class Main extends Application {
 
         Inventory.addProduct(product1);
         Inventory.addProduct(product2);
-
 
         launch(args);
     }

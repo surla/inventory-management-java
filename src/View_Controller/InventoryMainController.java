@@ -49,7 +49,6 @@ public class InventoryMainController {
 
     /**
      * Method will exit program.
-     *
      */
     @FXML
     public void handleCloseButtonAction(ActionEvent event) {
@@ -71,6 +70,10 @@ public class InventoryMainController {
         window.show();
     }
 
+    /**
+     * Method populates modify parts form with part object. Allows users to change is information.
+     * Alerts users if no part is selected before clicking button.
+     */
     @FXML
     private void modifyPartSceneOnClick(ActionEvent event) throws IOException {
         if (partTableView.getSelectionModel().getSelectedItem() != null) {
@@ -96,6 +99,9 @@ public class InventoryMainController {
         }
     }
 
+    /**
+     * Method deletes part object. Confirmation alerts users before deletion.
+     */
     @FXML
     private void deletePartButtonPushed() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -115,6 +121,10 @@ public class InventoryMainController {
      * Below are methods for Product table
      */
 
+    /**
+     * Method to add new product object. Redirects to add product form.
+     */
+
     @FXML
     private void onClickAddProductButton(ActionEvent event) throws IOException {
         Parent addProductParent = FXMLLoader.load(getClass().getResource("/View_Controller/AddProduct.fxml"));
@@ -124,6 +134,10 @@ public class InventoryMainController {
         window.show();
     }
 
+    /**
+     * This method redirects users to modify product form.
+     * If no product is select, alert message pops up.
+     */
     @FXML
     private void onClickModifyProductButton(ActionEvent event) throws IOException {
         if (productTableView.getSelectionModel().getSelectedItem() != null) {
@@ -150,6 +164,11 @@ public class InventoryMainController {
 
     }
 
+    /**
+     * Method deletes selected product. Alerts user if no product is selected.
+     * User cannot delete product if associated parts exists. Users will be alerted to delete
+     * associated parts first.
+     */
     @FXML
     private void onClickDeleteProductButton(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -174,34 +193,11 @@ public class InventoryMainController {
         }
     }
 
-    @FXML
-    public void initialize() {
-
-        //TableView Parts
-        partTableView.setItems(Inventory.getAllParts());
-        partIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        partNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        partInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        //TableView Products
-        productTableView.setItems(Inventory.getAllProducts());
-        productIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        productInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        partSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            search = newValue;
-        });
-        productSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            search = newValue;
-        });
-
-        partSearchLabel.setText("");
-        productSearchLabel.setText("");
-    }
-
+    /**
+     * Method to search parts table. Message 'Part not found' if users enters an invalid part.
+     * Table will automatically populate if part is found.
+     * Shows all products when parts search text field is empty.
+     */
     @FXML
     private void partSearchData() {
         ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
@@ -229,6 +225,12 @@ public class InventoryMainController {
             partTableView.setItems(partSearchResults);
         }
     }
+
+    /**
+     * Method to search product table. Message 'Produc not found' if users enters an invalid product name.
+     * Table will automatically populate if part is found.
+     * Shows all products when product search text field is empty.
+     */
 
     @FXML
     private void productSearchData() {
@@ -258,4 +260,36 @@ public class InventoryMainController {
         }
     }
 
+    /**
+     * initialize method will set cell values for both parts and product tableview.
+     * Listeners added to parts and product search text field to allow users to search
+     * for an available part.
+     */
+    @FXML
+    public void initialize() {
+
+        //TableView Parts
+        partTableView.setItems(Inventory.getAllParts());
+        partIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        //TableView Products
+        productTableView.setItems(Inventory.getAllProducts());
+        productIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        partSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            search = newValue;
+        });
+        productSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            search = newValue;
+        });
+
+        partSearchLabel.setText("");
+        productSearchLabel.setText("");
+    }
 }
