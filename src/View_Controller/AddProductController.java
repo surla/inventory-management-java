@@ -77,13 +77,18 @@ public class AddProductController {
         }
 
         Inventory.addProduct(newProduct);
-        System.out.println(newProduct.getAllAssociatedParts());
 
         Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
         Scene mainScene = new Scene(parent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(mainScene);
         window.show();
+    }
+
+    @FXML
+    private void removeAssociatedPart(ActionEvent event) {
+        Part part = partTableView.getSelectionModel().getSelectedItem();
+        addParts.remove(part);
     }
 
 
