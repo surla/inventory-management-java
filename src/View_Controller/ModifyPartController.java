@@ -92,6 +92,26 @@ public class ModifyPartController {
             int min = Integer.parseInt(minTextField.getText());
             String source = sourceTextField.getText();
 
+            if (min > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Modify Part");
+                alert.setHeaderText("Error. Change min and/or max.");
+                alert.setContentText("Make sure Min is less than Max");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if (stock < min || stock > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Modify Part");
+                alert.setHeaderText("Error. Change Inv.");
+                alert.setContentText("Make sure Inv is in-between Min and Max.");
+
+                alert.showAndWait();
+                return;
+            }
+
             if (selectedPart instanceof InHouse && InHouse) {
                 selectedPart.setName(name);
                 selectedPart.setPrice(price);

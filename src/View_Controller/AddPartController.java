@@ -92,6 +92,7 @@ public class AddPartController {
                 alert.setContentText("Make sure Min is less than Max");
 
                 alert.showAndWait();
+                return;
             }
 
             if (stock < min || stock > max) {
@@ -101,6 +102,7 @@ public class AddPartController {
                 alert.setContentText("Make sure Inv is in-between Min and Max.");
 
                 alert.showAndWait();
+                return;
             }
 
             if (InHouseRadioButton.isSelected()) {

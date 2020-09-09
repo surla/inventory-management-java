@@ -117,6 +117,25 @@ public class AddProductController {
             int max = Integer.parseInt(maxTextField.getText());
             int min = Integer.parseInt(minTextField.getText());
 
+            if (min > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Add Product");
+                alert.setHeaderText("Error. Change min and/or max.");
+                alert.setContentText("Make sure Min is less than Max");
+
+                alert.showAndWait();
+                return;
+            }
+
+            if (stock < min || stock > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Add Product");
+                alert.setHeaderText("Error. Change Inv.");
+                alert.setContentText("Make sure Inv is in-between Min and Max.");
+
+                alert.showAndWait();
+                return;
+            }
 
             Product newProduct = new Product(id, name, price, stock, min, max);
 
