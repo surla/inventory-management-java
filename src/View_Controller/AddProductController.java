@@ -1,7 +1,6 @@
 package View_Controller;
 
 import Model.*;
-import javafx.beans.binding.ObjectExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,12 +63,10 @@ public class AddProductController {
         for (Part part: Inventory.getAllParts()) {
             if (part.getName().toLowerCase().equals(search.toLowerCase())) {
                 partSearchResults.add(part);
-                System.out.println("YAY!");
             }
 
             if (String.valueOf(part.getId()).equals(search)) {
                 partSearchResults.add(part);
-                System.out.println("Duece!");
             }
         }
 
@@ -94,29 +91,39 @@ public class AddProductController {
     }
 
     public void saveProductButtonAction(ActionEvent event) throws IOException {
-        Random random = new Random();
+        try {
+            Random random = new Random();
 
-        int id = random.nextInt(200);
-        String name = nameTextField.getText();
-        int stock = Integer.parseInt(inventoryTextField.getText());
-        double price = Double.parseDouble(priceTextField.getText());
-        int max = Integer.parseInt(maxTextField.getText());
-        int min = Integer.parseInt(minTextField.getText());
+            int id = random.nextInt(200);
+            String name = nameTextField.getText();
+            int stock = Integer.parseInt(inventoryTextField.getText());
+            double price = Double.parseDouble(priceTextField.getText());
+            int max = Integer.parseInt(maxTextField.getText());
+            int min = Integer.parseInt(minTextField.getText());
 
 
-        Product newProduct = new Product(id, name, price, stock, min, max);
+            Product newProduct = new Product(id, name, price, stock, min, max);
 
-        for (Part part: addParts) {
-            newProduct.addAssociatedPart(part);
+            for (Part part : addParts) {
+                newProduct.addAssociatedPart(part);
+            }
+
+            Inventory.addProduct(newProduct);
+
+            Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
+            Scene mainScene = new Scene(parent);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(mainScene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Add Product");
+            alert.setHeaderText("Error. Inappropriate data entered.");
+            alert.setContentText("Please try again.");
+
+            alert.showAndWait();
         }
-
-        Inventory.addProduct(newProduct);
-
-        Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
-        Scene mainScene = new Scene(parent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(mainScene);
-        window.show();
     }
 
     @FXML
@@ -131,7 +138,6 @@ public class AddProductController {
             Part part = partTableView.getSelectionModel().getSelectedItem();
             addParts.remove(part);
         }
-
     }
 
 

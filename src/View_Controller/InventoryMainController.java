@@ -205,7 +205,6 @@ public class InventoryMainController {
     @FXML
     private void partSearchData() {
         ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
-        System.out.println(search);
 
         for (Part part: Inventory.getAllParts()) {
             if (part.getName().toLowerCase().equals(search.toLowerCase())) {
@@ -234,17 +233,14 @@ public class InventoryMainController {
     @FXML
     private void productSearchData() {
         ObservableList<Product> productSearchResults = FXCollections.observableArrayList();
-        System.out.println(search);
 
         for (Product product: Inventory.getAllProducts()) {
             if (product.getName().toLowerCase().equals(search.toLowerCase())) {
                 productSearchResults.add(product);
-                System.out.println("YAY!");
             }
 
             if (String.valueOf(product.getId()).equals(search)) {
                 productSearchResults.add(product);
-                System.out.println("Deuce!");
             }
         }
 

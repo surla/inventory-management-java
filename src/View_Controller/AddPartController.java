@@ -67,6 +67,7 @@ public class AddPartController {
      */
 
     public void savePartButtonAction(ActionEvent event) throws IOException {
+        try {
             Random random = new Random();
 
             int id = random.nextInt(200);
@@ -77,11 +78,20 @@ public class AddPartController {
             int min = Integer.parseInt(minTextField.getText());
             String source = sourceTextField.getText();
 
-            if (min > max || stock < min) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("I have a great message for you!");
+            if (min > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Add Part");
+                alert.setHeaderText("Error. Change min and/or max.");
+                alert.setContentText("Make sure Min is less than Max");
+
+                alert.showAndWait();
+            }
+
+            if (stock < min || stock > max) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Add Part");
+                alert.setHeaderText("Error. Change Inv.");
+                alert.setContentText("Make sure Inv is in-between Min and Max.");
 
                 alert.showAndWait();
             }
@@ -117,6 +127,14 @@ public class AddPartController {
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(mainScene);
             window.show();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Add Part");
+            alert.setHeaderText("Error. Inappropriate data entered.");
+            alert.setContentText("Please try again.");
+
+            alert.showAndWait();
+        }
     }
 
     public void initialize() {

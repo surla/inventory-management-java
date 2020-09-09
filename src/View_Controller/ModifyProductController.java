@@ -1,6 +1,8 @@
 package View_Controller;
 
 import Model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,10 @@ import java.util.Optional;
 
 public class ModifyProductController {
     private Product selectedProduct;
+    private String search;
+
+    @FXML private Label partSearchLabel;
+    @FXML private TextField partSearchTextField;
 
     @FXML private TextField productIdTextField;
     @FXML private TextField nameTextField;
@@ -59,25 +65,62 @@ public class ModifyProductController {
     }
 
     @FXML
+    private void partSearchData() {
+        ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
+        System.out.println(search);
+
+        for (Part part: Inventory.getAllParts()) {
+            if (part.getName().toLowerCase().equals(search.toLowerCase())) {
+                partSearchResults.add(part);
+            }
+
+            if (String.valueOf(part.getId()).equals(search)) {
+                partSearchResults.add(part);
+            }
+        }
+
+        if (partSearchResults.isEmpty()) {
+            partSearchLabel.setText("Part not found!");
+        } else {
+            partSearchLabel.setText(" ");
+        }
+
+        if (search.equals("")) {
+            partTableView.setItems(Inventory.getAllParts());
+            partSearchLabel.setText(" ");
+        } else {
+            partTableView.setItems(partSearchResults);
+        }
+    }
+
+    @FXML
     private void saveModifyProductButtonAction(ActionEvent event) throws IOException {
+        try {
+            String name = nameTextField.getText();
+            int stock = Integer.parseInt(inventoryTextField.getText());
+            double price = Double.parseDouble(priceTextField.getText());
+            int max = Integer.parseInt(maxTextField.getText());
+            int min = Integer.parseInt(minTextField.getText());
 
-        String name = nameTextField.getText();
-        int stock = Integer.parseInt(inventoryTextField.getText());
-        double price = Double.parseDouble(priceTextField.getText());
-        int max = Integer.parseInt(maxTextField.getText());
-        int min = Integer.parseInt(minTextField.getText());
+            selectedProduct.setName(name);
+            selectedProduct.setStock(stock);
+            selectedProduct.setPrice(price);
+            selectedProduct.setMax(max);
+            selectedProduct.setMin(min);
 
-        selectedProduct.setName(name);
-        selectedProduct.setStock(stock);
-        selectedProduct.setPrice(price);
-        selectedProduct.setMax(max);
-        selectedProduct.setMin(min);
+            Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
+            Scene mainScene = new Scene(parent);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(mainScene);
+            window.show();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Add Product");
+            alert.setHeaderText("Error. Inappropriate data entered.");
+            alert.setContentText("Please try again.");
 
-        Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
-        Scene mainScene = new Scene(parent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(mainScene);
-        window.show();
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -127,5 +170,11 @@ public class ModifyProductController {
         associatedPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         associatedPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         associatedPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        partSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            search = newValue;
+        });
+
+        partSearchLabel.setText("");
     }
 }

@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -78,68 +75,77 @@ public class ModifyPartController {
 
     @FXML
     public void saveModifyPartButtonAction(ActionEvent event) throws IOException {
-        boolean InHouse = this.sourceToggleGroup.getSelectedToggle().equals(this.InHouseRadioButton);
-        boolean OutSourced = this.sourceToggleGroup.getSelectedToggle().equals(this.OutsourcedRadioButton);
+        try {
+            boolean InHouse = this.sourceToggleGroup.getSelectedToggle().equals(this.InHouseRadioButton);
+            boolean OutSourced = this.sourceToggleGroup.getSelectedToggle().equals(this.OutsourcedRadioButton);
 
-        int id = Integer.parseInt(partIdTextField.getText());
-        String name = nameTextField.getText();
-        int stock = Integer.parseInt(inventoryTextField.getText());
-        double price = Double.parseDouble(priceTextField.getText());
-        int max = Integer.parseInt(maxTextField.getText());
-        int min = Integer.parseInt(minTextField.getText());
-        String source = sourceTextField.getText();
+            int id = Integer.parseInt(partIdTextField.getText());
+            String name = nameTextField.getText();
+            int stock = Integer.parseInt(inventoryTextField.getText());
+            double price = Double.parseDouble(priceTextField.getText());
+            int max = Integer.parseInt(maxTextField.getText());
+            int min = Integer.parseInt(minTextField.getText());
+            String source = sourceTextField.getText();
 
-        if (selectedPart instanceof InHouse && InHouse){
-            selectedPart.setName(name);
-            selectedPart.setPrice(price);
-            selectedPart.setMax(max);
-            selectedPart.setMin(min);
-            ((InHouse) selectedPart).setMachineId(Integer.parseInt(source));
+            if (selectedPart instanceof InHouse && InHouse) {
+                selectedPart.setName(name);
+                selectedPart.setPrice(price);
+                selectedPart.setMax(max);
+                selectedPart.setMin(min);
+                ((InHouse) selectedPart).setMachineId(Integer.parseInt(source));
+            }
+
+            if (selectedPart instanceof InHouse && OutSourced) {
+                String companyName = source;
+
+                Inventory.addPart(new Outsourced(id,
+                        name,
+                        price,
+                        stock,
+                        min,
+                        max,
+                        companyName));
+
+                //Removes part
+                Inventory.deletePart(selectedPart);
+            }
+
+            if (selectedPart instanceof Outsourced && OutSourced) {
+                selectedPart.setName(name);
+                selectedPart.setPrice(price);
+                selectedPart.setMax(max);
+                selectedPart.setMin(min);
+                ((Outsourced) selectedPart).setCompanyName(source);
+            }
+
+            if (selectedPart instanceof Outsourced && InHouse) {
+                int machineId = Integer.parseInt(source);
+
+                Inventory.addPart(new InHouse(id,
+                        name,
+                        price,
+                        stock,
+                        min,
+                        max,
+                        machineId));
+
+                Inventory.deletePart(selectedPart);
+            }
+
+
+            Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
+            Scene mainScene = new Scene(parent);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(mainScene);
+            window.show();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Add Product");
+            alert.setHeaderText("Error. Inappropriate data entered.");
+            alert.setContentText("Please try again.");
+
+            alert.showAndWait();
         }
-
-        if (selectedPart instanceof InHouse && OutSourced) {
-            String companyName = source;
-
-            Inventory.addPart(new Outsourced(id,
-                    name,
-                    price,
-                    stock,
-                    min,
-                    max,
-                    companyName));
-
-            //Removes part
-            Inventory.deletePart(selectedPart);
-        }
-
-        if (selectedPart instanceof Outsourced && OutSourced) {
-            selectedPart.setName(name);
-            selectedPart.setPrice(price);
-            selectedPart.setMax(max);
-            selectedPart.setMin(min);
-            ((Outsourced) selectedPart).setCompanyName(source);
-        }
-
-        if (selectedPart instanceof Outsourced && InHouse) {
-            int machineId = Integer.parseInt(source);
-
-            Inventory.addPart(new InHouse(id,
-                    name,
-                    price,
-                    stock,
-                    min,
-                    max,
-                    machineId));
-
-            Inventory.deletePart(selectedPart);
-        }
-
-
-        Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
-        Scene mainScene = new Scene(parent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(mainScene);
-        window.show();
 
     }
 
