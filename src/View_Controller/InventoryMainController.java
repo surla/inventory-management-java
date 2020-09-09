@@ -1,13 +1,13 @@
 package View_Controller;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 import Model.*;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,11 +16,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+
 public class InventoryMainController {
-    @FXML
-    private Button exitButton;
+
+    private String search;
+
+    @FXML private Button exitButton;
+    @FXML private TextField partSearchTextField;
+    @FXML private TextField productSearchTextField;
+    @FXML private Label searchLabel;
 
     //TableView Part
     @FXML private TableView<Part> partTableView;
@@ -37,10 +45,6 @@ public class InventoryMainController {
     @FXML private TableColumn<Product, Double> productPriceColumn;
 
 
-
-
-    public InventoryMainController() {
-    }
 
     /**
      * Method will exit program.
@@ -151,7 +155,7 @@ public class InventoryMainController {
     }
 
     @FXML
-    void initialize() {
+    public void initialize() {
 
         //TableView Parts
         partTableView.setItems(Inventory.getAllParts());
@@ -166,5 +170,41 @@ public class InventoryMainController {
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         productInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        partSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            search = newValue;
+        });
     }
+
+    @FXML
+    private void searchData(KeyEvent press) {
+        ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
+        System.out.println(search);
+
+
+
+        for (Part part: Inventory.getAllParts()) {
+            if (part.getName().toLowerCase().equals(search.toLowerCase())) {
+                partSearchResults.add(part);
+                System.out.println("YAY!");
+            }
+
+            if (String.valueOf(part.getId()).equals(search)) {
+                partSearchResults.add(part);
+                System.out.println("Duece!");
+            }
+        }
+
+        if (partSearchResults.isEmpty()) {
+            searchLabel.setText("Part not found!");
+        }
+
+        if (search.equals("")) {
+            partTableView.setItems(Inventory.getAllParts());
+            searchLabel.setText(" ");
+        } else {
+            partTableView.setItems(partSearchResults);
+        }
+    }
+
 }

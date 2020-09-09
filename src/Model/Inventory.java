@@ -18,7 +18,7 @@ public class Inventory {
 //  Empty methods for Inventory class
 
 //    public Part lookupPart(int partId) {
-//        //Need code
+//
 //    }
 //
 //    public Product lookupProduct(int productId) {
