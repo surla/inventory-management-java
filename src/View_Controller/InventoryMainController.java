@@ -21,26 +21,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.TableView;
 
 public class InventoryMainController {
-
-
-
-    @FXML
-    private Button addPartButton;
-
-    @FXML
-    private Button modifyPartButton;
-
-    @FXML
-    private Button deletePartButton;
-
-    @FXML
-    private Button searchPartButton;
-
     @FXML
     private Button exitButton;
-
-    @FXML
-    private TextField searchPartField;
 
     //TableView Part
     @FXML private TableView<Part> partTableView;
@@ -48,6 +30,13 @@ public class InventoryMainController {
     @FXML private TableColumn<Part, String> partNameColumn;
     @FXML private TableColumn<Part, String> partInvColumn;
     @FXML private TableColumn<Part, Double> partPriceColumn;
+
+    //TableView Products
+    @FXML private TableView<Product> productTableView;
+    @FXML private TableColumn<Product, Integer> productIdColumn;
+    @FXML private TableColumn<Product, String> productNameColumn;
+    @FXML private TableColumn<Product, String> productInvColumn;
+    @FXML private TableColumn<Product, Double> productPriceColumn;
 
 
 
@@ -102,13 +91,51 @@ public class InventoryMainController {
         
     }
 
+
+    /**
+     * Below are methods for Product table
+     */
+
+    @FXML
+    private void onClickAddProductButton(ActionEvent event) throws IOException {
+        Parent addProductParent = FXMLLoader.load(getClass().getResource("/View_Controller/AddProduct.fxml"));
+        Scene addProductScene = new Scene(addProductParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(addProductScene);
+        window.show();
+    }
+
+    @FXML
+    private void onClickModifyProductButton(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
+        Parent modifyProductParent = loader.load();
+        Scene modifyProductScene = new Scene(modifyProductParent);
+
+        //Accesses the controller and passed in the selected part
+        ModifyProductController controller = loader.getController();
+        controller.initData(productTableView.getSelectionModel().getSelectedItem());
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(modifyProductScene);
+        window.show();
+    }
+
     @FXML
     void initialize() {
-        partTableView.setItems(Inventory.getAllParts());
 
+        //TableView Parts
+        partTableView.setItems(Inventory.getAllParts());
         partIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        //TableView Products
+        productTableView.setItems(Inventory.getAllProducts());
+        productIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 }

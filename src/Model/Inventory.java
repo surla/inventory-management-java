@@ -3,8 +3,6 @@ package Model;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 
-import static javafx.collections.FXCollections.*;
-
 public class Inventory {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
@@ -46,16 +44,16 @@ public class Inventory {
     public static boolean deletePart(Part selectedPart) {
         return allParts.remove(selectedPart);
     }
-//
-//    public boolean deleteProduct(Product selectedProduct) {
-//
-//    }
-//
+
+    public boolean deleteProduct(Product selectedProduct) {
+        return allProducts.remove(selectedProduct);
+    }
+
     public static ObservableList<Part> getAllParts() {
         return allParts;
     }
 
-    public ObservableList<Product> getAllProducts() {
+    public static ObservableList<Product> getAllProducts() {
         return allProducts;
     }
 }

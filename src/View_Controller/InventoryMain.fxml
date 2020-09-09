@@ -44,16 +44,16 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TableView layoutX="14.0" layoutY="53.0" prefHeight="200.0" prefWidth="344.0">
+            <TableView fx:id="productTableView" layoutX="14.0" layoutY="53.0" prefHeight="200.0" prefWidth="344.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="Products ID" />
-                  <TableColumn prefWidth="89.0" text="Product Name" />
-                  <TableColumn prefWidth="61.0" text="Inventory" />
-                  <TableColumn prefWidth="120.0" text="Price/Cost per Unit" />
+                  <TableColumn fx:id="productIdColumn" prefWidth="75.0" text="Products ID" />
+                  <TableColumn fx:id="productNameColumn" prefWidth="89.0" text="Product Name" />
+                  <TableColumn fx:id="productInvColumn" prefWidth="61.0" text="Inventory" />
+                  <TableColumn fx:id="productPriceColumn" prefWidth="120.0" text="Price/Cost per Unit" />
                </columns>
             </TableView>
-            <Button layoutX="15.0" layoutY="264.0" mnemonicParsing="false" text="Add" />
-            <Button layoutX="236.0" layoutY="264.0" mnemonicParsing="false" text="Modify" />
+            <Button fx:id="addProductButton" layoutX="15.0" layoutY="264.0" mnemonicParsing="false" onAction="#onClickAddProductButton" text="Add" />
+            <Button fx:id="modifyProductButton" layoutX="236.0" layoutY="264.0" mnemonicParsing="false" onAction="#onClickModifyProductButton" text="Modify" />
             <Button layoutX="304.0" layoutY="264.0" mnemonicParsing="false" text="Delete" />
             <Button layoutX="302.0" layoutY="16.0" mnemonicParsing="false" text="Search" />
             <TextField layoutX="182.0" layoutY="16.0" prefHeight="27.0" prefWidth="110.0" />

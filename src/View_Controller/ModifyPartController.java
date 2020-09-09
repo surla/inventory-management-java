@@ -35,6 +35,7 @@ public class ModifyPartController {
 
     /**
      * Method accepts a part to initialize modify form
+     * @param part
      */
 
     public void initData (Part part) throws IOException {
@@ -89,7 +90,6 @@ public class ModifyPartController {
         String source = sourceTextField.getText();
 
         if (selectedPart instanceof InHouse && InHouse){
-            System.out.println("InHouse");
             selectedPart.setName(name);
             selectedPart.setPrice(price);
             selectedPart.setMax(max);
@@ -98,7 +98,6 @@ public class ModifyPartController {
         }
 
         if (selectedPart instanceof InHouse && OutSourced) {
-            System.out.println("InHouse to Outsourced");
             String companyName = source;
 
             Inventory.addPart(new Outsourced(id,
@@ -109,12 +108,11 @@ public class ModifyPartController {
                     max,
                     companyName));
 
-            //Removes part 
+            //Removes part
             Inventory.deletePart(selectedPart);
         }
 
         if (selectedPart instanceof Outsourced && OutSourced) {
-            System.out.println("Outsourced");
             selectedPart.setName(name);
             selectedPart.setPrice(price);
             selectedPart.setMax(max);
@@ -123,7 +121,6 @@ public class ModifyPartController {
         }
 
         if (selectedPart instanceof Outsourced && InHouse) {
-            System.out.println("Outsourced to InHouse");
             int machineId = Integer.parseInt(source);
 
             Inventory.addPart(new InHouse(id,
