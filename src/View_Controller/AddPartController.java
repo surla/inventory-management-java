@@ -67,55 +67,56 @@ public class AddPartController {
      */
 
     public void savePartButtonAction(ActionEvent event) throws IOException {
-        Random random = new Random();
+            Random random = new Random();
 
-        int id = random.nextInt(200);
-        String name = nameTextField.getText();
-        int stock = Integer.parseInt(inventoryTextField.getText());
-        double price = Double.parseDouble(priceTextField.getText());
-        int max = Integer.parseInt(maxTextField.getText());
-        int min = Integer.parseInt(minTextField.getText());
-        String source = sourceTextField.getText();
+            int id = random.nextInt(200);
+            String name = nameTextField.getText();
+            int stock = Integer.parseInt(inventoryTextField.getText());
+            double price = Double.parseDouble(priceTextField.getText());
+            int max = Integer.parseInt(maxTextField.getText());
+            int min = Integer.parseInt(minTextField.getText());
+            String source = sourceTextField.getText();
 
-        if (min > max || stock < min) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("I have a great message for you!");
+            if (min > max || stock < min) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("I have a great message for you!");
 
-            alert.showAndWait();
-        }
+                alert.showAndWait();
+            }
 
-        if (InHouseRadioButton.isSelected()) {
-            int machineId = Integer.parseInt(source);
+            if (InHouseRadioButton.isSelected()) {
+                int machineId = Integer.parseInt(source);
 
-            Inventory.addPart(new InHouse(id,
-                    name,
-                    price,
-                    stock,
-                    min,
-                    max,
-                    machineId));
-        }
+                Inventory.addPart(new InHouse(id,
+                        name,
+                        price,
+                        stock,
+                        min,
+                        max,
+                        machineId));
 
-        if (OutsourcedRadioButton.isSelected()) {
-            String companyName = source;
+            }
 
-            Inventory.addPart(new Outsourced(id,
-                    name,
-                    price,
-                    stock,
-                    min,
-                    max,
-                    companyName));
-        }
+            if (OutsourcedRadioButton.isSelected()) {
+                String companyName = source;
+
+                Inventory.addPart(new Outsourced(id,
+                        name,
+                        price,
+                        stock,
+                        min,
+                        max,
+                        companyName));
+            }
 
 
-        Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
-        Scene mainScene = new Scene(parent);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(mainScene);
-        window.show();
+            Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
+            Scene mainScene = new Scene(parent);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(mainScene);
+            window.show();
     }
 
     public void initialize() {

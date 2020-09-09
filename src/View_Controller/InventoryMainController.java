@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Optional;
 
 import Model.*;
-import javafx.beans.binding.Bindings;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 
 public class InventoryMainController {
 
@@ -74,18 +73,27 @@ public class InventoryMainController {
 
     @FXML
     private void modifyPartSceneOnClick(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/View_Controller/ModifyPart.fxml"));
-        Parent modifyPartParent = loader.load();
-        Scene modifyPartScene = new Scene(modifyPartParent);
+        if (partTableView.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/View_Controller/ModifyPart.fxml"));
+            Parent modifyPartParent = loader.load();
+            Scene modifyPartScene = new Scene(modifyPartParent);
 
-        //Accesses the controller and passed in the selected part
-        ModifyPartController controller = loader.getController();
-        controller.initData(partTableView.getSelectionModel().getSelectedItem());
+            //Accesses the controller and passed in the selected part
+            ModifyPartController controller = loader.getController();
+            controller.initData(partTableView.getSelectionModel().getSelectedItem());
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(modifyPartScene);
-        window.show();
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(modifyPartScene);
+            window.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Modify Part");
+            alert.setHeaderText("No part selected.");
+            alert.setContentText("Please select part to modify.");
+
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -118,18 +126,28 @@ public class InventoryMainController {
 
     @FXML
     private void onClickModifyProductButton(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
-        Parent modifyProductParent = loader.load();
-        Scene modifyProductScene = new Scene(modifyProductParent);
+        if (productTableView.getSelectionModel().getSelectedItem() != null) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
+            Parent modifyProductParent = loader.load();
+            Scene modifyProductScene = new Scene(modifyProductParent);
 
-        //Accesses the controller and passed in the selected part
-        ModifyProductController controller = loader.getController();
-        controller.initData(productTableView.getSelectionModel().getSelectedItem());
+            //Accesses the controller and passed in the selected part
+            ModifyProductController controller = loader.getController();
+            controller.initData(productTableView.getSelectionModel().getSelectedItem());
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(modifyProductScene);
-        window.show();
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            window.setScene(modifyProductScene);
+            window.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Modify Product");
+            alert.setHeaderText("No product selected.");
+            alert.setContentText("Please select product to modify.");
+
+            alert.showAndWait();
+        }
+
     }
 
     @FXML
@@ -185,24 +203,24 @@ public class InventoryMainController {
     }
 
     @FXML
-    private void partSearchData(KeyEvent press) {
+    private void partSearchData() {
         ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
         System.out.println(search);
 
         for (Part part: Inventory.getAllParts()) {
             if (part.getName().toLowerCase().equals(search.toLowerCase())) {
                 partSearchResults.add(part);
-                System.out.println("YAY!");
             }
 
             if (String.valueOf(part.getId()).equals(search)) {
                 partSearchResults.add(part);
-                System.out.println("Duece!");
             }
         }
 
         if (partSearchResults.isEmpty()) {
             partSearchLabel.setText("Part not found!");
+        } else {
+            partSearchLabel.setText(" ");
         }
 
         if (search.equals("")) {
@@ -214,10 +232,10 @@ public class InventoryMainController {
     }
 
     @FXML
-    private void productSearchData(KeyEvent press) {
+    private void productSearchData() {
         ObservableList<Product> productSearchResults = FXCollections.observableArrayList();
         System.out.println(search);
-        
+
         for (Product product: Inventory.getAllProducts()) {
             if (product.getName().toLowerCase().equals(search.toLowerCase())) {
                 productSearchResults.add(product);
@@ -232,6 +250,8 @@ public class InventoryMainController {
 
         if (productSearchResults.isEmpty()) {
             productSearchLabel.setText("Part not found!");
+        } else {
+            partSearchLabel.setText(" ");
         }
 
         if (search.equals("")) {

@@ -20,6 +20,10 @@ import java.util.Random;
 
 public class AddProductController {
     private ObservableList<Part> addParts = FXCollections.observableArrayList();
+    private String search;
+
+    @FXML private Label partSearchLabel;
+    @FXML private TextField partSearchTextField;
 
     @FXML private TextField productIdTextField;
     @FXML private TextField nameTextField;
@@ -50,6 +54,37 @@ public class AddProductController {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(mainScene);
         window.show();
+    }
+
+    @FXML
+    private void partSearchData() {
+        ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
+        System.out.println(search);
+
+        for (Part part: Inventory.getAllParts()) {
+            if (part.getName().toLowerCase().equals(search.toLowerCase())) {
+                partSearchResults.add(part);
+                System.out.println("YAY!");
+            }
+
+            if (String.valueOf(part.getId()).equals(search)) {
+                partSearchResults.add(part);
+                System.out.println("Duece!");
+            }
+        }
+
+        if (partSearchResults.isEmpty()) {
+            partSearchLabel.setText("Part not found!");
+        } else {
+            partSearchLabel.setText(" ");
+        }
+
+        if (search.equals("")) {
+            partTableView.setItems(Inventory.getAllParts());
+            partSearchLabel.setText(" ");
+        } else {
+            partTableView.setItems(partSearchResults);
+        }
     }
 
     @FXML
@@ -119,5 +154,11 @@ public class AddProductController {
         associatedPartNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         associatedPartInvColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
         associatedPartPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        partSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            search = newValue;
+        });
+
+        partSearchLabel.setText("");
     }
 }
