@@ -37,7 +37,7 @@ public class ModifyPartController {
      * Method accepts a part to initialize modify form
      */
 
-    public void initData (Part part) {
+    public void initData (Part part) throws IOException {
         selectedPart = part;
 
         String id = String.valueOf(selectedPart.getId());
@@ -73,20 +73,77 @@ public class ModifyPartController {
             sourceTextField.setText(String.valueOf(((Outsourced) selectedPart).getCompanyName()));
         }
 
-
-
     }
 
     @FXML
     public void saveModifyPartButtonAction(ActionEvent event) throws IOException {
+        boolean InHouse = this.sourceToggleGroup.getSelectedToggle().equals(this.InHouseRadioButton);
+        boolean OutSourced = this.sourceToggleGroup.getSelectedToggle().equals(this.OutsourcedRadioButton);
 
-
-        String name =i nameTextField.getText();
+        int id = Integer.parseInt(partIdTextField.getText());
+        String name = nameTextField.getText();
         int stock = Integer.parseInt(inventoryTextField.getText());
         double price = Double.parseDouble(priceTextField.getText());
         int max = Integer.parseInt(maxTextField.getText());
         int min = Integer.parseInt(minTextField.getText());
         String source = sourceTextField.getText();
+
+        if (selectedPart instanceof InHouse && InHouse){
+            System.out.println("InHouse");
+            selectedPart.setName(name);
+            selectedPart.setPrice(price);
+            selectedPart.setMax(max);
+            selectedPart.setMin(min);
+            ((InHouse) selectedPart).setMachineId(Integer.parseInt(source));
+        }
+
+        if (selectedPart instanceof InHouse && OutSourced) {
+            System.out.println("InHouse to Outsourced");
+            String companyName = source;
+
+            Inventory.addPart(new Outsourced(id,
+                    name,
+                    price,
+                    stock,
+                    min,
+                    max,
+                    companyName));
+
+            //Removes part 
+            Inventory.deletePart(selectedPart);
+        }
+
+        if (selectedPart instanceof Outsourced && OutSourced) {
+            System.out.println("Outsourced");
+            selectedPart.setName(name);
+            selectedPart.setPrice(price);
+            selectedPart.setMax(max);
+            selectedPart.setMin(min);
+            ((Outsourced) selectedPart).setCompanyName(source);
+        }
+
+        if (selectedPart instanceof Outsourced && InHouse) {
+            System.out.println("Outsourced to InHouse");
+            int machineId = Integer.parseInt(source);
+
+            Inventory.addPart(new InHouse(id,
+                    name,
+                    price,
+                    stock,
+                    min,
+                    max,
+                    machineId));
+
+            Inventory.deletePart(selectedPart);
+        }
+
+
+        Parent parent = FXMLLoader.load(getClass().getResource("/View_Controller/InventoryMain.fxml"));
+        Scene mainScene = new Scene(parent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(mainScene);
+        window.show();
+
     }
 
     @FXML
