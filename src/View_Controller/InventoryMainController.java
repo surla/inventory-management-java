@@ -27,8 +27,10 @@ public class InventoryMainController {
 
     @FXML private Button exitButton;
     @FXML private TextField partSearchTextField;
+    @FXML private Label partSearchLabel;
     @FXML private TextField productSearchTextField;
-    @FXML private Label searchLabel;
+    @FXML private Label productSearchLabel;
+
 
     //TableView Part
     @FXML private TableView<Part> partTableView;
@@ -174,14 +176,18 @@ public class InventoryMainController {
         partSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             search = newValue;
         });
+        productSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            search = newValue;
+        });
+
+        partSearchLabel.setText("");
+        productSearchLabel.setText("");
     }
 
     @FXML
-    private void searchData(KeyEvent press) {
+    private void partSearchData(KeyEvent press) {
         ObservableList<Part> partSearchResults = FXCollections.observableArrayList();
         System.out.println(search);
-
-
 
         for (Part part: Inventory.getAllParts()) {
             if (part.getName().toLowerCase().equals(search.toLowerCase())) {
@@ -196,14 +202,43 @@ public class InventoryMainController {
         }
 
         if (partSearchResults.isEmpty()) {
-            searchLabel.setText("Part not found!");
+            partSearchLabel.setText("Part not found!");
         }
 
         if (search.equals("")) {
             partTableView.setItems(Inventory.getAllParts());
-            searchLabel.setText(" ");
+            partSearchLabel.setText(" ");
         } else {
             partTableView.setItems(partSearchResults);
+        }
+    }
+
+    @FXML
+    private void productSearchData(KeyEvent press) {
+        ObservableList<Product> productSearchResults = FXCollections.observableArrayList();
+        System.out.println(search);
+        
+        for (Product product: Inventory.getAllProducts()) {
+            if (product.getName().toLowerCase().equals(search.toLowerCase())) {
+                productSearchResults.add(product);
+                System.out.println("YAY!");
+            }
+
+            if (String.valueOf(product.getId()).equals(search)) {
+                productSearchResults.add(product);
+                System.out.println("Deuce!");
+            }
+        }
+
+        if (productSearchResults.isEmpty()) {
+            productSearchLabel.setText("Part not found!");
+        }
+
+        if (search.equals("")) {
+            productTableView.setItems(Inventory.getAllProducts());
+            productSearchLabel.setText(" ");
+        } else {
+            productTableView.setItems(productSearchResults);
         }
     }
 

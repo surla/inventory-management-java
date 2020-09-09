@@ -33,8 +33,8 @@
             <Button fx:id="addPartButton" layoutX="15.0" layoutY="264.0" mnemonicParsing="false" onAction="#addPartSceneOnClick" text="Add" />
             <Button fx:id="modifyPartButton" layoutX="236.0" layoutY="264.0" mnemonicParsing="false" onAction="#modifyPartSceneOnClick" text="Modify" />
             <Button fx:id="deletePartButton" layoutX="304.0" layoutY="264.0" mnemonicParsing="false" onAction="#deletePartButtonPushed" text="Delete" />
-            <TextField fx:id="partSearchTextField" layoutX="246.0" layoutY="16.0" onKeyTyped="#searchData" prefHeight="27.0" prefWidth="110.0" />
-            <Label fx:id="searchLabel" layoutX="121.0" layoutY="21.0" />
+            <TextField fx:id="partSearchTextField" layoutX="246.0" layoutY="16.0" onKeyTyped="#partSearchData" prefHeight="27.0" prefWidth="110.0" />
+            <Label fx:id="partSearchLabel" layoutX="131.0" layoutY="21.0" text="search label" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="410.0" layoutY="63.0" prefHeight="305.0" prefWidth="370.0">
@@ -55,8 +55,8 @@
             <Button fx:id="addProductButton" layoutX="15.0" layoutY="264.0" mnemonicParsing="false" onAction="#onClickAddProductButton" text="Add" />
             <Button fx:id="modifyProductButton" layoutX="236.0" layoutY="264.0" mnemonicParsing="false" onAction="#onClickModifyProductButton" text="Modify" />
             <Button fx:id="deleteProductButton" layoutX="304.0" layoutY="264.0" mnemonicParsing="false" onAction="#onClickDeleteProductButton" text="Delete" />
-            <Button layoutX="302.0" layoutY="16.0" mnemonicParsing="false" text="Search" />
-            <TextField fx:id="productSearchTextField" layoutX="182.0" layoutY="16.0" prefHeight="27.0" prefWidth="110.0" />
+            <TextField fx:id="productSearchTextField" layoutX="249.0" layoutY="15.0" onKeyTyped="#productSearchData" prefHeight="27.0" prefWidth="110.0" />
+            <Label fx:id="productSearchLabel" layoutX="143.0" layoutY="20.0" text="search label" />
          </children>
       </AnchorPane>
       <Button fx:id="exitButton" layoutX="728.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" text="Exit" />
