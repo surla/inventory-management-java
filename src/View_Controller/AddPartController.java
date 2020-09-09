@@ -14,13 +14,15 @@ import java.io.IOException;
 import java.util.Random;
 
 public class AddPartController {
+
+    private ToggleGroup sourceToggleGroup = new ToggleGroup();
+
     //Radio Button
     @FXML private RadioButton InHouseRadioButton;
     @FXML private RadioButton OutsourcedRadioButton;
-    private ToggleGroup sourceToggleGroup = new ToggleGroup();
+
 
     @FXML private TextField partIdTextField;
-
     @FXML private TextField nameTextField;
     @FXML private TextField inventoryTextField;
     @FXML private TextField priceTextField;
@@ -116,8 +118,5 @@ public class AddPartController {
         sourceLabel.setText("Machine Id");
         this.InHouseRadioButton.setToggleGroup(sourceToggleGroup);
         this.OutsourcedRadioButton.setToggleGroup(sourceToggleGroup);
-
-
-
     }
 }
