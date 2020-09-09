@@ -47,7 +47,7 @@ public class ModifyProductController {
         priceTextField.setText(price);
         maxTextField.setText(max);
         minTextField.setText(min);
-        
+
     }
 
     @FXML

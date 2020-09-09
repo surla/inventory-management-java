@@ -58,23 +58,23 @@
         </AnchorPane>
         <AnchorPane layoutX="292.0" layoutY="8.0" prefHeight="584.0" prefWidth="382.0">
             <children>
-                <TableView layoutX="14.0" layoutY="52.0" prefHeight="200.0" prefWidth="361.0">
+                <TableView fx:id="partTableView" layoutX="14.0" layoutY="52.0" prefHeight="200.0" prefWidth="361.0">
                     <columns>
-                        <TableColumn prefWidth="52.0" text="Part ID" />
-                        <TableColumn prefWidth="98.0" text="Part Name" />
-                        <TableColumn prefWidth="100.0" text="Inventory Level" />
-                        <TableColumn prefWidth="110.0" text="Price/Cost per Unit" />
+                        <TableColumn fx:id="partIdColumn" prefWidth="52.0" text="Part ID" />
+                        <TableColumn fx:id="partNameColumn" prefWidth="98.0" text="Part Name" />
+                        <TableColumn fx:id="partInvColumn" prefWidth="100.0" text="Inventory Level" />
+                        <TableColumn fx:id="partPriceColumn" prefWidth="110.0" text="Price/Cost per Unit" />
                     </columns>
                 </TableView>
-                <TableView layoutX="14.0" layoutY="301.0" prefHeight="200.0" prefWidth="361.0">
+                <TableView fx:id="associatedPartTableView" layoutX="14.0" layoutY="301.0" prefHeight="200.0" prefWidth="361.0">
                     <columns>
-                        <TableColumn prefWidth="52.0" text="Part ID" />
-                        <TableColumn prefWidth="98.0" text="Part Name" />
-                        <TableColumn prefWidth="100.0" text="Inventory Level" />
-                        <TableColumn prefWidth="110.0" text="Price/Cost per Unit" />
+                        <TableColumn fx:id="associatedPartIdColumn" prefWidth="52.0" text="Part ID" />
+                        <TableColumn fx:id="associatedPartNameColumn" prefWidth="98.0" text="Part Name" />
+                        <TableColumn fx:id="associatedPartInvColumn" prefWidth="100.0" text="Inventory Level" />
+                        <TableColumn fx:id="associatedPartPriceColumn" prefWidth="110.0" text="Price/Cost per Unit" />
                     </columns>
                 </TableView>
-                <Button layoutX="334.0" layoutY="259.0" mnemonicParsing="false" text="Add" />
+                <Button fx:id="addPartButton" layoutX="334.0" layoutY="259.0" mnemonicParsing="false" onAction="#onClickAddPartButton" text="Add" />
                 <Button layoutX="224.0" layoutY="509.0" mnemonicParsing="false" text="Remove Associated Part" />
                 <Button fx:id="productSaveButton" layoutX="224.0" layoutY="547.0" mnemonicParsing="false" onAction="#saveProductButtonAction" text="Save" />
                 <Button fx:id="productCancelButton" layoutX="318.0" layoutY="547.0" mnemonicParsing="false" onAction="#onClickCancelButton" text="Cancel" />
